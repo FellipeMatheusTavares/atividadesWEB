@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação de Números Primos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Verificar Número Primo</h1>
+        <input type="number" id="numero" placeholder="Insira um número">
+        <button onclick="verificar()">Verificar</button>
+        <div class="result" id="resultado"></div>
+    </div>
+    <script>
+        function verificarNumeroPrimo(n){
+            if(n <= 1){
+                return false;
+            }
+            if((n != 2) && (n % 2 == 0)){
+                return false;
+            }
+            for(let i = 3; i <= Math.sqrt(n); i += 2){
+                if(n % i == 0){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function verificar() {
+            const numero = document.getElementById('numero').value;
+            const resultado = document.getElementById('resultado');
+            if (numero === '') {
+                resultado.innerHTML = 'Por favor, insira um número.';
+                return;
+            }
+            const num = parseInt(numero);
+            if (verificarNumeroPrimo(num)) {
+                resultado.innerHTML = `O número ${num} é primo.`;
+            } else {
+                resultado.innerHTML = `O número ${num} não é primo.`;
+            }
+        }
+    </script>
+</body>
+</html>

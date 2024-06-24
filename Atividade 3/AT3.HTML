@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transposição de Matriz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .matrix-input {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        .matrix-input textarea {
+            width: 300px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .result {
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <h1>Transposição de Matriz</h1>
+    <div class="matrix-input">
+        <textarea id="matrixInput" placeholder="Insira a matriz, uma linha por linha, separando os elementos por espaço. Ex: 1 2\n3 4\n5 6"></textarea>
+        <button onclick="transpor()">Transpor Matriz</button>
+    </div>
+    <div class="result" id="originalMatrix"></div>
+    <div class="result" id="transposedMatrix"></div>
+
+    <script>
+        function transporMatriz(A) {
+            let matrizString = '';
+            for (let i = 0; i < A.length; i++) {
+                for (let j = 0; j < A[i].length; j++) {
+                    matrizString += A[i][j] + ' ';
+                }
+                matrizString += '\n';
+            }
+
+            let matrizTranspostaString = '';
+            for (let j = 0; j < A[0].length; j++) {
+                for (let i = 0; i < A.length; i++) {
+                    matrizTranspostaString += A[i][j] + ' ';
+                }
+                matrizTranspostaString += '\n';
+            }
+
+            return {
+                original: matrizString,
+                transposed: matrizTranspostaString
+            };
+        }
+
+        function transpor() {
+            const matrixInput = document.getElementById('matrixInput').value.trim();
+            if (!matrixInput) {
+                alert('Por favor, insira a matriz.');
+                return;
+            }
+
+            const rows = matrixInput.split('\n');
+            const matrix = rows.map(row => row.trim().split(' ').map(Number));
+
+            const result = transporMatriz(matrix);
+            document.getElementById('originalMatrix').innerHTML = `Matriz Original:\n${result.original}`;
+            document.getElementById('transposedMatrix').innerHTML = `Matriz Transposta:\n${result.transposed}`;
+        }
+    </script>
+</body>
+</html>
